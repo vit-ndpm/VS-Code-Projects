@@ -1,0 +1,1 @@
+<object data="{{asset('img/logo.png')}}" width="64px" height="64px"> </object>
