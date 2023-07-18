@@ -1,19 +1,32 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\API\PaperController;
+use App\Http\Controllers\API\QuestionController;
+use App\Http\Controllers\API\ResponseController;
+use App\Http\Controllers\API\UserAuthController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+Route::post('registerUser',[UserAuthController::class,'register']);
+Route::post('login',[UserAuthController::class,'userLogin']);
+Route::post('forgetPassword',[UserAuthController::class,'forgetPassword']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware("auth:sanctum")->controller(UserAuthController::class)->group(function(){
+
+    Route::post('logout','logout');
+    Route::get('changePassword','changePassword');
+
+});
+Route::middleware('auth:sanctum')->controller(PaperController::class)->group(function(){
+    Route::get('getAllPapers','getPapers');
+    Route::get('getPaperById/{id}','getPaperById');
+});
+Route::middleware('auth:sanctum')->controller(QuestionController::class)->group(function(){
+    Route::get('getAllQuestionByPaperId/{paperId}','getAllQuestionByPaperId');
+    Route::get('getQuestionByQuestionNoAndPaperId/{paperId}/{questionId}','getQuestionByQuestionNoAndPaperId');
+});
+Route::middleware('auth:sanctum')->controller(ResponseController::class)->group(function(){
+    Route::get('getAllResponse','getAllResponse');
+    Route::post('setResponse/','setResponse');
+    Route::post('updateResponse/','updateResponse');
+    Route::post('delteResposne/','delteResposne');
 });

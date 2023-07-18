@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\PaperController;
-use App\Http\Controllers\SubjectController;
-use App\Http\Controllers\TopicsController;
-use App\Http\Controllers\QuestionController;
-
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PaperController;
+use App\Http\Controllers\TopicsController;
+use App\Http\Controllers\SubjectController;
+
+use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\API\UserAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,6 +86,9 @@ Route::get('listQuestion/{id}',[QuestionController::class,'listQuestion'])->name
 Route::post('importQuestion',[QuestionController::class,'importQuestion'])->name('importQuestion');
 Route::get('showw',[QuestionController::class,'showw']);
 
+//reset Password link
+Route::get('resetPassword',[UserAuthController::class,'resetPasswordLoad']);
+Route::post('resetPassword',[UserAuthController::class,'resetPassword']);
 
 
 
