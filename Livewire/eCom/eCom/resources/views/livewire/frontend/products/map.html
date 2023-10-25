@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google Maps Markers with Info Windows</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDE98oVtUzfYwui9QjylK61yicGXv12aKA&callback=initMap" async defer></script>
+    <script>
+      let map;
+
+      function initMap() {
+        // Create a map centered at a specific location
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 37.7749, lng: -122.4194 }, // Example: San Francisco, CA
+          zoom: 10,
+        });
+
+        // Create markers and set their positions
+        const marker1 = new google.maps.Marker({
+          position: { lat: 37.7749, lng: -122.4194 },
+          map: map,
+          title: "Marker 1",
+        });
+
+        const marker2 = new google.maps.Marker({
+          position: { lat: 37.789, lng: -122.412 },
+          map: map,
+          title: "Marker 2",
+        });
+
+        // Create info windows for markers
+        const infoWindow1 = new google.maps.InfoWindow({
+          content: "This is Marker 1 Info Window",
+        });
+
+        const infoWindow2 = new google.maps.InfoWindow({
+          content: "This is Marker 2 Info Window",
+        });
+
+        // Add click event listeners to open info windows
+        marker1.addListener("click", () => {
+          infoWindow1.open(map, marker1);
+        });
+
+        marker2.addListener("click", () => {
+          infoWindow2.open(map, marker2);
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div id="map" style="height: 400px; width: 100%;"></div>
+  </body>
+</html>
+
+
